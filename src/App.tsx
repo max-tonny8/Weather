@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Spinner from 'react-bootstrap/Spinner';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const WEATHER_API = {
@@ -25,10 +27,12 @@ interface Weather {
 }
 
 export default function App() {
-  const [query, setQuery] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("Phagwara");
   const [weather, setWeather] = useState<Weather>();
 
   const search = () => {
+    setLoading(true);
     fetch(`${WEATHER_API.url}weather?q=${query}&units=metric&appid=${WEATHER_API.key}`)
       .then(res => res.json())
       .then((response) => {
@@ -46,8 +50,10 @@ export default function App() {
           error: response.message
         };
         setWeather(weatherModel);
+        setLoading(false);
       }).catch(e => {
         setWeather({ error: e.message });
+        setLoading(false);
       });
   }
 
@@ -63,23 +69,28 @@ export default function App() {
         </InputGroup>
       </div>
       {
-        (typeof weather?.temperature != "undefined") ? (
-          <div className="weather-box">
-            <h1 className="cityName">{weather?.cityName}</h1>
-            <img
-              src={weather?.weatherIcon}
-              alt={weather?.weatherName} />
-
-            <h1 className="temperature">{weather?.temperature}</h1>
-            <div className="temperatureMinMax">
-              <span className="tempMin"> {weather?.temperatureMin}</span>
-              <span className="tempMax"> {weather?.temperatureMax}</span>
-            </div>
-            <p className="weatherDescription">{weather?.weatherDescription}</p>
-          </div>
+        (loading) ? (
+          <Spinner className="loading" animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
         ) : (
-          <h1 className="error">{weather?.error}</h1>
-        )
+          (typeof weather?.temperature != "undefined") ? (
+            <div className="weather-box">
+              <h1 className="cityName">{weather?.cityName}</h1>
+              <img
+                src={weather?.weatherIcon}
+                alt={weather?.weatherName} />
+
+              <h1 className="temperature">{weather?.temperature}</h1>
+              <div className="temperatureMinMax">
+                <span className="tempMin"> {weather?.temperatureMin}</span>
+                <span className="tempMax"> {weather?.temperatureMax}</span>
+              </div>
+              <p className="weatherDescription">{weather?.weatherDescription}</p>
+            </div>
+          ) : (
+            <h1 className="error">{weather?.error}</h1>
+          ))
       }
     </div >
   );
