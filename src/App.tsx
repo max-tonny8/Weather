@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, InputGroup, Spinner } from 'reactstrap';
+import { Button, Input, InputGroup, Spinner, Fade } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -37,7 +37,7 @@ export default function App() {
         if (response.cod !== 200) {
           throw new Error(response.message);
         }
-        let weatherModel = {
+        let weatherModel: Weather = {
           cityName: response.name,
           weatherIcon: icon(response.weather[0].icon),
           weatherName: response.weather[0].main,
@@ -75,27 +75,29 @@ export default function App() {
           </Spinner>
         ) : (
           (typeof weather?.temperature != "undefined") ? (
-            <div className="weather-box">
-              <h1 className="cityName">{weather?.cityName}</h1>
+            <Fade className="mt-3" tag="div">
+              <div className="weather-box">
+                <h1 className="cityName">{weather?.cityName}</h1>
+                <Spinner
+                  style={{ display: imageLoading ? "block" : "none" }}
+                  className="loading">
+                  Loading...
+                </Spinner>
+                <img
+                  style={{ display: imageLoading ? "none" : "block" }}
+                  src={weather?.weatherIcon}
+                  alt={weather?.weatherName}
+                  onLoad={() => setImageLoading(false)} />
 
-              <Spinner
-                style={{ display: imageLoading ? "block" : "none" }}
-                className="loading">
-                Loading...
-              </Spinner>
-              <img
-                style={{ display: imageLoading ? "none" : "block" }}
-                src={weather?.weatherIcon}
-                alt={weather?.weatherName}
-                onLoad={() => setImageLoading(false)} />
-
-              <h1 className="temperature">{weather?.temperature}</h1>
-              <div className="temperatureMinMax">
-                <span className="tempMin"> {weather?.temperatureMin}</span>
-                <span className="tempMax"> {weather?.temperatureMax}</span>
+                <h1 className="temperature">{weather?.temperature}</h1>
+                <div className="temperatureMinMax">
+                  <span className="tempMin"> {weather?.temperatureMin}</span>
+                  <span className="tempMax"> {weather?.temperatureMax}</span>
+                </div>
+                <p className="weatherDescription">{weather?.weatherDescription}</p>
               </div>
-              <p className="weatherDescription">{weather?.weatherDescription}</p>
-            </div>
+            </Fade>
+
           ) : (
             <h1 className="error">{weather?.error}</h1>
           ))
