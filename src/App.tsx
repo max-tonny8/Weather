@@ -29,7 +29,7 @@ interface Weather {
 export default function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
-  const [query, setQuery] = useState<string>("Phagwara");
+  const [query, setQuery] = useState<string>("");
   const [weather, setWeather] = useState<Weather>();
 
   const search = () => {
