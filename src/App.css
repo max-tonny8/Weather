@@ -1,3 +1,8 @@
+/* 
+* {
+  background-image: url("https://wallpapercave.com/wp/wp2222453.jpg");
+}
+*/
 body {
   margin: 2%;
   background-color: #1b1b1b;
@@ -9,4 +14,51 @@ body {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+}
+
+#btn-search {
+  color: #ffffff;
+}
+
+#btn-search:hover,
+#btn-search:active {
+  color: black;
+  background-color: aliceblue;
+  border-color: aliceblue;
+}
+
+.error {
+  font-size: 1.25em;
+  font-weight: bold;
+  padding: 0.5em;
+}
+
+.loading {
+  margin: 24px;
+  color: aliceblue;
+}
+
+.weather-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px;
+}
+
+.temperature {
+  display: flex;
+  justify-content: center;
+}
+
+.temperatureMinMax {
+  display: flex;
+  margin-top: 8px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.weatherDescription {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
 }
