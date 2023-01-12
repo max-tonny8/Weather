@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Spinner from 'react-bootstrap/Spinner';
+import { Button, Input, InputGroup, Spinner } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -64,7 +61,7 @@ export default function App() {
     <div className="container">
       <div className="search-box">
         <InputGroup className="mb-3"          >
-          <Form.Control
+          <Input
             placeholder="Enter city name"
             onChange={e => setQuery(e.target.value)}
             value={query} />
@@ -74,7 +71,7 @@ export default function App() {
       {
         (loading) ? (
           <Spinner className="loading" animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
+            Loading...
           </Spinner>
         ) : (
           (typeof weather?.temperature != "undefined") ? (
@@ -83,8 +80,8 @@ export default function App() {
 
               <Spinner
                 style={{ display: imageLoading ? "block" : "none" }}
-                className="loading" animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
+                className="loading">
+                Loading...
               </Spinner>
               <img
                 style={{ display: imageLoading ? "none" : "block" }}
