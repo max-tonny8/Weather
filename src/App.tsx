@@ -28,6 +28,7 @@ interface Weather {
 
 export default function App() {
   const [loading, setLoading] = useState<boolean>(false);
+  const [imageLoading, setImageLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("Phagwara");
   const [weather, setWeather] = useState<Weather>();
 
@@ -51,9 +52,11 @@ export default function App() {
         };
         setWeather(weatherModel);
         setLoading(false);
+        setImageLoading(true);
       }).catch(e => {
         setWeather({ error: e.message });
         setLoading(false);
+        setImageLoading(true);
       });
   }
 
@@ -77,9 +80,17 @@ export default function App() {
           (typeof weather?.temperature != "undefined") ? (
             <div className="weather-box">
               <h1 className="cityName">{weather?.cityName}</h1>
+
+              <Spinner
+                style={{ display: imageLoading ? "block" : "none" }}
+                className="loading" animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
               <img
+                style={{ display: imageLoading ? "none" : "block" }}
                 src={weather?.weatherIcon}
-                alt={weather?.weatherName} />
+                alt={weather?.weatherName}
+                onLoad={() => setImageLoading(false)} />
 
               <h1 className="temperature">{weather?.temperature}</h1>
               <div className="temperatureMinMax">
