@@ -1,5 +1,5 @@
 # WeatherApp
-A website to display weather details built use React, TypeScript and Bootstrap for styling. It using [OpenWeatherMap](https://openweathermap.org/api) to fetch weather data.
+A website to display weather details built using React, TypeScript and Bootstrap for styling. It uses [OpenWeatherMap](https://openweathermap.org/api) to fetch weather data.
 
 
 # Preview
