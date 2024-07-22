@@ -23,7 +23,7 @@ body {
 #btn-search:hover,
 #btn-search:active {
   color: black;
-  background-color: aliceblue;
+  background-color: rgb(141, 142, 143);
   border-color: aliceblue;
 }
 
@@ -57,8 +57,13 @@ body {
   justify-content: space-between;
 }
 
+.tempMin, .tempMax {
+  font-size: 1.75rem;
+}
+
 .weatherDescription {
   display: flex;
   justify-content: center;
   margin-top: 24px;
+  font-size: 1.25rem;
 }
